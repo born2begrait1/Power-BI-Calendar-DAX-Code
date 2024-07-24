@@ -1,0 +1,17 @@
+dDate = 
+ADDCOLUMNS(
+    CALENDAR(
+        MIN(fTransaction[OrderDate]),
+        MAX(fTransaction[OrderDate])
+    ),
+    "Year", YEAR([Date]),
+    "Month", FORMAT([Date],"mmmm"),
+    "Month Number", MONTH([Date]),
+    "Weekday", FORMAT([Date],"dddd"),
+    "Weekday Number", WEEKDAY([Date],2),
+    "Quarter", QUARTER([Date]),
+    "Fiscal Quarter", IF(QUARTER([Date]) = 1, 4, QUARTER([Date]) - 1),
+    "Fiscal Year", IF(QUARTER([Date]) = 1, YEAR([Date]) - 1, YEAR([Date])),
+    "Fiscal Period", "Q" & IF(QUARTER([Date]) = 1, 4, QUARTER([Date]) - 1) & "-" & IF(QUARTER([Date]) = 1, YEAR([Date]) - 1, YEAR([Date])),
+    "FP Sort", VALUE(IF(QUARTER([Date]) = 1, YEAR([Date]) - 1, YEAR([Date])) & IF(QUARTER([Date]) = 1, 4, QUARTER([Date]) - 1))
+)
